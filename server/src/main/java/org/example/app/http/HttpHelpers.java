@@ -1,8 +1,10 @@
-package org.example.config.http;
+package org.example.app.http;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.config.exceptions.PostmanException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import org.example.app.exceptions.PostmanException;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpHelpers {
     private static final ObjectMapper mapper = new ObjectMapper();
 

@@ -2,21 +2,18 @@ package org.example.ports.messages;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.config.exceptions.NotFoundException;
-import org.example.config.exceptions.ResponseException;
-import org.example.config.http.HttpHelpers;
+import org.example.app.exceptions.NotFoundException;
+import org.example.app.exceptions.ResponseException;
+import org.example.app.http.HttpHelpers;
 import org.example.domain.Postman;
-import org.example.domain.PostmanImpl;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.util.*;
 
 import static java.lang.invoke.VarHandle.AccessMode.GET;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
-import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.HttpURLConnection.*;
 
 @Slf4j
 public record MessageHandlers(Postman postman) implements HttpHandler {
@@ -64,6 +61,10 @@ public record MessageHandlers(Postman postman) implements HttpHandler {
             exchange.sendResponseHeaders(HTTP_NOT_FOUND, message.length);
             body.write(message);
         } catch (Exception e){
+            var body = exchange.getResponseBody();
+            var message =  HttpHelpers.objectToArray(new ResponseException(HTTP_BAD_REQUEST, e.getMessage(), Date.from(Instant.now()).toString()));
+            exchange.sendResponseHeaders(HTTP_BAD_REQUEST, message.length);
+            body.write(message);
             log.error(e.getMessage());
         } finally {
             exchange.close();

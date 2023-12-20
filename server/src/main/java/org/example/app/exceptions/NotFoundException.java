@@ -1,4 +1,4 @@
-package org.example.config.exceptions;
+package org.example.app.exceptions;
 
 import java.io.Serializable;
 

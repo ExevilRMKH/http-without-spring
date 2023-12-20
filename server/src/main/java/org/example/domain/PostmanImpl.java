@@ -1,7 +1,7 @@
 package org.example.domain;
 
-import org.example.config.exceptions.NotFoundException;
-import org.example.config.http.HttpHelpers;
+import org.example.app.exceptions.NotFoundException;
+import org.example.app.http.HttpHelpers;
 import org.example.repository.MessageRepository;
 
 public record PostmanImpl(MessageRepository repository) implements Postman{

@@ -1,13 +1,6 @@
-package org.example.config.exceptions;
+package org.example.app.exceptions;
 
 public class PostmanException extends RuntimeException{
-    public PostmanException() {
-    }
-
-    public PostmanException(String message) {
-        super(message);
-    }
-
     public PostmanException(String message, Throwable cause) {
         super(message, cause);
     }
